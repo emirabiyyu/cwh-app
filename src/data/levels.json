@@ -1,0 +1,68 @@
+[
+  {
+    "id": "mission_1",
+    "title": "Living Room",
+    "sceneImage": "/assets/scenes/scene_livingroom.jpg",
+    "levels": [
+      {
+        "id": "level_1",
+        "objectsToFind": [
+          { "id": "obj_sofa", "name": "Sofa", "colorCode": "#FF0000", "image": "/assets/placeholder.png" },
+          { "id": "obj_lamp", "name": "Lamp", "colorCode": "#FFFF00", "image": "/assets/placeholder.png" },
+          { "id": "obj_table", "name": "Table", "colorCode": "#A0522D", "image": "/assets/placeholder.png" },
+          { "id": "obj_tv", "name": "TV", "colorCode": "#000000", "image": "/assets/placeholder.png" },
+          { "id": "obj_rug", "name": "Rug", "colorCode": "#808080", "image": "/assets/placeholder.png" },
+          { "id": "obj_plant", "name": "Plant", "colorCode": "#008000", "image": "/assets/placeholder.png" },
+          { "id": "obj_book", "name": "Book", "colorCode": "#0000FF", "image": "/assets/placeholder.png" },
+          { "id": "obj_clock", "name": "Wall Clock", "colorCode": "#FFFFFF", "image": "/assets/placeholder.png" }
+        ]
+      },
+      {
+        "id": "level_2",
+        "objectsToFind": [
+          { "id": "obj_chair", "name": "Chair", "colorCode": "#FF0000", "image": "/assets/placeholder.png" },
+          { "id": "obj_vase", "name": "Vase", "colorCode": "#00FF00", "image": "/assets/placeholder.png" },
+          { "id": "obj_picture", "name": "Picture", "colorCode": "#800080", "image": "/assets/placeholder.png" },
+          { "id": "obj_remote", "name": "Remote", "colorCode": "#000000", "image": "/assets/placeholder.png" },
+          { "id": "obj_pillow", "name": "Pillow", "colorCode": "#FFA500", "image": "/assets/placeholder.png" },
+          { "id": "obj_window", "name": "Window", "colorCode": "#ADD8E6", "image": "/assets/placeholder.png" },
+          { "id": "obj_curtain", "name": "Curtain", "colorCode": "#FFC0CB", "image": "/assets/placeholder.png" },
+          { "id": "obj_fan", "name": "Fan", "colorCode": "#808080", "image": "/assets/placeholder.png" }
+        ]
+      },
+      {
+        "id": "level_3",
+        "objectsToFind": [
+          { "id": "obj_mug", "name": "Mug", "colorCode": "#FFFFFF", "image": "/assets/placeholder.png" },
+          { "id": "obj_keys", "name": "Keys", "colorCode": "#FFD700", "image": "/assets/placeholder.png" },
+          { "id": "obj_shoes", "name": "Shoes", "colorCode": "#000000", "image": "/assets/placeholder.png" },
+          { "id": "obj_bag", "name": "Bag", "colorCode": "#A52A2A", "image": "/assets/placeholder.png" },
+          { "id": "obj_phone", "name": "Phone", "colorCode": "#000080", "image": "/assets/placeholder.png" },
+          { "id": "obj_hat", "name": "Hat", "colorCode": "#FF0000", "image": "/assets/placeholder.png" },
+          { "id": "obj_box", "name": "Box", "colorCode": "#A0522D", "image": "/assets/placeholder.png" },
+          { "id": "obj_wallet", "name": "Wallet", "colorCode": "#808080", "image": "/assets/placeholder.png" }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "mission_2",
+    "title": "Bedroom",
+    "sceneImage": "/assets/scenes/scene_bedroom.jpg",
+    "levels": [
+      {
+        "id": "level_1",
+        "objectsToFind": [
+          { "id": "obj_bed", "name": "Bed", "colorCode": "#0000FF", "image": "/assets/placeholder.png" },
+          { "id": "obj_wardrobe", "name": "Wardrobe", "colorCode": "#8B4513", "image": "/assets/placeholder.png" },
+          { "id": "obj_mirror", "name": "Mirror", "colorCode": "#D3D3D3", "image": "/assets/placeholder.png" },
+          { "id": "obj_desk", "name": "Desk", "colorCode": "#FFFFFF", "image": "/assets/placeholder.png" },
+          { "id": "obj_chair2", "name": "Armchair", "colorCode": "#FF0000", "image": "/assets/placeholder.png" },
+          { "id": "obj_laptop", "name": "Laptop", "colorCode": "#000000", "image": "/assets/placeholder.png" },
+          { "id": "obj_book2", "name": "Notebook", "colorCode": "#00FF00", "image": "/assets/placeholder.png" },
+          { "id": "obj_lamp2", "name": "Night Lamp", "colorCode": "#FFFF00", "image": "/assets/placeholder.png" }
+        ]
+      }
+    ]
+  }
+]
