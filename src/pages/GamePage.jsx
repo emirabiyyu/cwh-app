@@ -131,7 +131,27 @@ export default function GamePage() {
   };
 
   return (
-    <div className="max-w-sm mx-auto h-screen flex flex-col bg-cream overflow-hidden touch-none relative select-none animate-fadeIn">
+    <div
+      className="bg-cream overflow-hidden touch-none select-none animate-fadeIn"
+      style={{
+        width: '100vw',
+        height: '100dvh',
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+    >
+      <div
+        style={{
+          width: '100%',
+          height: '100%',
+          maxWidth: 'min(100vw, calc(100dvh * 0.65))',
+          margin: '0 auto',
+          display: 'flex',
+          flexDirection: 'column',
+          overflow: 'hidden',
+          position: 'relative',
+        }}
+      >
       
       {/* 1. HudBar */}
       <HudBar 
@@ -265,6 +285,7 @@ export default function GamePage() {
         </div>
       </Modal>
 
+      </div>
     </div>
   );
 }
