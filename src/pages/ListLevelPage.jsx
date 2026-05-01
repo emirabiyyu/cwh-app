@@ -36,31 +36,31 @@ export default function ListLevelPage() {
   if (!mission) return <div className="p-8 text-center font-heading text-xl">Mission not found!</div>;
 
   return (
-    <div className="min-h-screen bg-sand p-6 sm:p-8 flex flex-col items-center relative overflow-hidden animate-fadeIn">
+    <div className="h-full bg-sand p-6 sm:p-8 flex flex-col items-center relative overflow-y-auto overflow-x-hidden animate-fadeIn">
       
       {/* Decorative Ornaments Background */}
       <div className="absolute top-1/4 left-[-10%] w-64 h-64 bg-lime/10 rounded-full blur-3xl pointer-events-none"></div>
 
-      {/* Header dengan tombol kembali & Judul yang memakai class font-heading */}
-      <div className="w-full max-w-md flex items-center mb-8 relative z-10">
-        <button 
-          onClick={() => navigate('/home')}
-          className="w-14 h-14 rounded-[1.25rem] bg-white border border-brown/10 shadow-sm flex items-center justify-center hover:bg-cream transition-all active:scale-95"
-        >
-          <span className="text-2xl drop-shadow-sm" role="img" aria-label="back">⬅️</span>
-        </button>
-        <div className="flex-1 text-center pr-14 flex flex-col justify-center h-14">
-          <p className="font-body text-brown text-xs sm:text-sm font-bold uppercase tracking-[0.2em] mb-1 opacity-80">
-            Daftar Level
-          </p>
-          <h1 className="font-heading text-2xl sm:text-3xl text-darkbrown font-black leading-none uppercase tracking-wide">
-            {mission.title}
-          </h1>
-        </div>
-      </div>
+      {/* Konten Wrapper */}
+      <div style={{ maxWidth: 'clamp(320px, 90vw, 560px)', margin: '0 auto', width: '100%' }} className="flex flex-col w-full relative z-10">
 
-      {/* Komponen Card List */}
-      <div className="w-full max-w-md flex flex-col gap-4 relative z-10">
+        {/* Header dengan tombol kembali & Judul yang memakai class font-heading */}
+        <div className="w-full flex items-center mb-8">
+          <button 
+            onClick={() => navigate('/home')}
+            className="w-14 h-14 rounded-[1.25rem] bg-white border border-brown/10 shadow-sm flex items-center justify-center hover:bg-cream transition-all active:scale-95"
+          >
+            <span className="text-2xl drop-shadow-sm" role="img" aria-label="back">⬅️</span>
+          </button>
+          <div className="flex-1 text-center pr-14 flex flex-col justify-center h-14">
+            <h1 className="font-heading text-2xl sm:text-3xl text-darkbrown font-black leading-none uppercase tracking-wide">
+              {mission.title}
+            </h1>
+          </div>
+        </div>
+
+        {/* Komponen Card List */}
+        <div className="w-full flex flex-col gap-4">
         {levelsWithProgress.map((level) => (
           <button
             key={level.id}
@@ -127,6 +127,7 @@ export default function ListLevelPage() {
         ))}
       </div>
 
+      </div>
     </div>
   );
 }

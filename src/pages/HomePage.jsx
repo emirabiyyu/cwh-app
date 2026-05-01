@@ -68,7 +68,7 @@ export default function HomePage() {
   const isM2Locked = earnedM1 < 4;
 
   return (
-    <div className="min-h-screen bg-sand p-6 sm:p-8 pb-20 relative overflow-hidden animate-fadeIn">
+    <div className="h-full overflow-y-auto overflow-x-hidden bg-sand p-6 sm:p-8 pb-20 relative animate-fadeIn">
       {/* Decorative Blur Backgrounds */}
       <div className="absolute top-[-10%] right-[-10%] w-64 h-64 bg-lime/20 rounded-full blur-3xl pointer-events-none"></div>
       <div className="absolute bottom-[-10%] left-[-10%] w-72 h-72 bg-[#5AC8FA]/10 rounded-full blur-3xl pointer-events-none"></div>
