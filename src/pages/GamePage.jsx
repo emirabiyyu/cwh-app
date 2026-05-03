@@ -200,9 +200,9 @@ export default function GamePage() {
         <div 
           className="absolute inset-0 z-20 pointer-events-none transition-colors duration-300"
           style={{
-            backgroundColor: gameState.gameStatus === 'correct' ? 'rgba(200, 214, 42, 0.95)' : gameState.gameStatus === 'wrong' ? 'rgba(255, 59, 48, 0.95)' : 'rgba(0, 0, 0, 0.96)',
-            maskImage: `radial-gradient(circle ${spotlight.spotR} at ${spotlight.spotX} ${spotlight.spotY}, transparent 100%, black 120%)`,
-            WebkitMaskImage: `radial-gradient(circle ${spotlight.spotR} at ${spotlight.spotX} ${spotlight.spotY}, transparent 100%, black 120%)`
+            backgroundColor: gameState.gameStatus === 'correct' ? 'rgba(200, 214, 42, 0.95)' : gameState.gameStatus === 'wrong' ? 'rgba(255, 59, 48, 0.95)' : 'rgba(0, 0, 0, 100)',
+            WebkitMaskImage: `radial-gradient(circle ${spotlight.spotR} at ${spotlight.spotX} ${spotlight.spotY}, transparent 0%, transparent 55%, black 100%)`,
+            maskImage: `radial-gradient(circle ${spotlight.spotR} at ${spotlight.spotX} ${spotlight.spotY}, transparent 0%, transparent 55%, black 100%)`,
           }}
         />
 
@@ -210,7 +210,7 @@ export default function GamePage() {
         {gameState.gameStatus === 'correct' && (
           <div className="absolute inset-x-0 top-[20%] flex justify-center z-30 pointer-events-none animate-bounce drop-shadow-[0_4px_16px_rgba(0,0,0,0.5)]">
              <div className="bg-lime text-darkbrown font-heading font-black text-2xl px-6 py-3 rounded-full border-4 border-white">
-                Bagus Sekali! ✅
+                Tepat Sekali! ✅
              </div>
           </div>
         )}
