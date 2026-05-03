@@ -1,7 +1,9 @@
 import React from 'react';
 import Icon from '../ui/Icon';
 
-export default function ObjectCard({ id, label, imageSrc, state = 'default', cardRef, onClick }) {
+export default function ObjectCard({ id, label, imageSrc, emoji, state = 'default', cardRef, onClick }) {
+  const [imageFailed, setImageFailed] = React.useState(false);
+
   // Base styles shared across all states — from Figma: rounded-[20px], padding 8px, vertical layout
   const baseStyles = "relative flex flex-col items-center justify-center gap-1 rounded-[20px] p-2 bg-white transition-all w-full aspect-[1.2/1] overflow-hidden cursor-pointer select-none";
 
@@ -49,14 +51,23 @@ export default function ObjectCard({ id, label, imageSrc, state = 'default', car
       onClick={onClick}
       className={`${baseStyles} ${stateStyles}`}
     >
-      {/* Object image */}
-      <img
-        src={imageSrc}
-        alt={label}
-        className="w-full h-3/4 object-contain pointer-events-none"
-        onError={(e) => { e.currentTarget.src = '/assets/placeholder.png'; }}
-        draggable={false}
-      />
+      {/* Object image or Emoji fallback */}
+      {!imageFailed && imageSrc && imageSrc !== '/assets/placeholder.png' ? (
+        <img
+          src={imageSrc}
+          alt={label}
+          className="w-full h-3/4 object-contain pointer-events-none"
+          onError={() => setImageFailed(true)}
+          draggable={false}
+        />
+      ) : (
+        <div className="w-full h-3/4 flex items-center justify-center">
+          {emoji
+            ? <span style={{ fontSize: 'clamp(2rem, 8vw, 3.5rem)' }}>{emoji}</span>
+            : <div className="w-full h-full bg-gray-200 rounded-lg" />
+          }
+        </div>
+      )}
 
       {/* Label */}
       <span className="font-body text-xs text-darkbrown/80 text-center truncate w-full">

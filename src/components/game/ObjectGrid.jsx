@@ -10,6 +10,7 @@ export default function ObjectGrid({ objects = [], cardStates = {}, onCardRef })
           id={obj.id}
           label={obj.name || obj.label}
           imageSrc={obj.image || obj.imageSrc}
+          emoji={obj.emoji}
           state={cardStates[obj.id] || 'default'}
           cardRef={(el) => onCardRef?.(obj.id, el)}
         />
