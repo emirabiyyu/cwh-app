@@ -9,6 +9,7 @@ import LockIcon from '@/assets/icons/lock.svg?react';
 import ArrowLeft from '@/assets/icons/arrow-left.svg?react';
 import CheckIcon from '@/assets/icons/check.svg?react';
 import XMark from '@/assets/icons/x-mark.svg?react';
+import EyeIcon from '@/assets/icons/eye.svg?react';
 
 const iconMap = {
   'heart-active': HeartActive,
@@ -21,6 +22,7 @@ const iconMap = {
   'arrow-left': ArrowLeft,
   'check': CheckIcon,
   'x-mark': XMark,
+  'eye': EyeIcon,
 };
 
 export default function Icon({ name, size = 24, className = '' }) {

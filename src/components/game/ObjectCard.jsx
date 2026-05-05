@@ -52,7 +52,7 @@ export default function ObjectCard({ id, label, imageSrc, emoji, state = 'defaul
       className={`${baseStyles} ${stateStyles}`}
     >
       {/* Object image or Emoji fallback */}
-      {!imageFailed && imageSrc && imageSrc !== '/assets/placeholder.png' ? (
+      {!imageFailed && imageSrc ? (
         <img
           src={imageSrc}
           alt={label}

@@ -5,7 +5,7 @@ import Button from '../ui/Button';
 const STEPS = [
   {
     title: 'Step 1',
-    description: 'Tekan layar untuk menyalakan sentermu!',
+    description: 'Tekan dan tahan layar untuk menyalakan sentermu!',
     illustration: '/assets/illustrations/tutorial-1.png',
   },
   {

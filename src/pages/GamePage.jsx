@@ -183,11 +183,12 @@ export default function GamePage() {
         onPointerLeave={() => spotlight.handlers.onPointerLeave()}
       >
         {/* Latar Belakang Scene */}
-        <img 
-          src={mission.sceneImage} 
-          alt="Scene Game" 
-          className="absolute inset-0 w-full h-full object-cover pointer-events-none" 
+        <img
+          src={mission.sceneImage}
+          alt="Scene background"
+          className="absolute inset-0 w-full h-full object-cover pointer-events-none"
           draggable="false"
+          onError={(e) => { e.target.style.display = 'none' }}
         />
 
         {/* Kotak Objek Grid */}
@@ -228,7 +229,7 @@ export default function GamePage() {
 
         {/* Floating Soal Progress Counter */}
         <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-30 flex items-center justify-center font-body text-sm font-bold text-white bg-darkbrown/70 px-5 py-2.5 rounded-[1.25rem] shadow-lg backdrop-blur-sm border border-white/10 tracking-[0.2em] uppercase">
-           {Math.min(gameState.currentInstructionIndex, instructions.length)} / {instructions.length}
+           {Math.min(gameState.currentInstructionIndex + 1, instructions.length)} / {instructions.length}
         </div>
 
       </div>

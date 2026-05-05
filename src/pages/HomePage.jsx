@@ -117,6 +117,7 @@ export default function HomePage() {
             requiredStars={0}
             isLocked={false}
             earnedStars={earnedM1}
+            imageSrc={levelsData[0].sceneImage}
             onStart={() => handleStartMission(levelsData[0].id)}
           />
         )}
@@ -129,6 +130,7 @@ export default function HomePage() {
             requiredStars={4}
             isLocked={isM2Locked}
             earnedStars={earnedM2}
+            imageSrc={levelsData[1].sceneImage}
             onStart={() => handleStartMission(levelsData[1].id)}
           />
         )}

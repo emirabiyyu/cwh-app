@@ -1,7 +1,7 @@
 import React from 'react';
 import Icon from './Icon';
 
-export default function MissionCard({ missionName, levelCount, requiredStars, isLocked = false, earnedStars = 0, onStart }) {
+export default function MissionCard({ missionName, levelCount, requiredStars, isLocked = false, earnedStars = 0, onStart, imageSrc }) {
   return (
     <div 
       onClick={isLocked ? undefined : onStart}
@@ -11,10 +11,18 @@ export default function MissionCard({ missionName, levelCount, requiredStars, is
           : 'cursor-pointer hover:border-lime/60 hover:shadow-lg active:scale-[0.98] active:shadow-sm'
       }`}
     >
-      {/* Top area — white image placeholder */}
-      <div className="relative w-full h-[132px] bg-white flex items-center justify-center">
+      {/* Top area — image thumbnail */}
+      <div className="relative w-full h-[132px] bg-white flex items-center justify-center overflow-hidden">
+        {imageSrc && (
+          <img 
+            src={imageSrc} 
+            alt={missionName} 
+            className="absolute inset-0 w-full h-full object-cover" 
+            onError={(e) => { e.target.src = '/assets/placeholder.png'; }}
+          />
+        )}
         {isLocked && (
-          <div className="w-[52px] h-[52px] rounded-full bg-cream/60 border border-cream flex items-center justify-center">
+          <div className="w-[52px] h-[52px] rounded-full bg-cream/60 border border-cream flex items-center justify-center z-10 relative">
             <Icon name="lock" size={24} className="text-darkbrown" />
           </div>
         )}

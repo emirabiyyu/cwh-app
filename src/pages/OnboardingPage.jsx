@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../components/ui/Button';
+import OnboardingIllustration from '@/assets/illustrations/illustration-onboarding.png';
 
 export default function OnboardingPage() {
   const navigate = useNavigate();
@@ -19,16 +20,18 @@ export default function OnboardingPage() {
 
       {/* Top Graphic / Logo Area */}
       <div className="w-full flex-1 flex flex-col items-center justify-center mt-8 z-10">
-        <div className="w-48 h-48 sm:w-56 sm:h-56 bg-cream rounded-[2.5rem] shadow-[inset_0_-8px_16px_rgba(0,0,0,0.05),_0_16px_32px_rgba(0,0,0,0.1)] flex items-center justify-center mb-10 border-[6px] border-white relative overflow-hidden">
-          <span className="text-[5rem] sm:text-[6rem]" role="img" aria-label="mangifying glass">🕵️‍♂️</span>
-        </div>
+        <img
+          src={OnboardingIllustration}
+          alt="Ilustrasi berburu kata"
+          className="w-full max-w-xs mx-auto object-contain"
+        />
         
         <h1 className="font-heading text-[2.5rem] sm:text-5xl text-darkbrown font-black text-center leading-[1.1] mb-5 tracking-tight text-shadow-sm">
           Color Word <br/><span className="text-lime mt-1 block">Hunt</span>
         </h1>
         
         <p className="font-body text-base xl:text-lg text-brown text-center max-w-xs sm:max-w-sm font-medium leading-relaxed px-2">
-          Temukan benda asyik dan cocokan kata beserta warnanya di sekitarmu!
+          Temukan benda dan cocokan kata beserta warnanya sesuai instruksi!
         </p>
       </div>
 

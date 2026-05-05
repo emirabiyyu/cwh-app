@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import levelsData from '../data/levels.json';
+import Icon from '../components/ui/Icon';
 
 export default function ListLevelPage() {
   const { missionId } = useParams();
@@ -51,7 +52,7 @@ export default function ListLevelPage() {
               onClick={() => navigate('/home')}
               className="w-14 h-14 rounded-[1.25rem] bg-white border border-brown/10 shadow-sm flex items-center justify-center hover:bg-cream transition-all active:scale-95"
             >
-              <span className="text-2xl drop-shadow-sm" role="img" aria-label="back">⬅️</span>
+              <Icon name="arrow-left" size={24} className="text-darkbrown drop-shadow-sm" />
             </button>
           </div>
           <div className="flex-1 text-center flex flex-col justify-center h-14">
@@ -62,10 +63,9 @@ export default function ListLevelPage() {
           <div className="w-14 flex justify-end items-center">
             <button
               onClick={() => navigate(`/mission/${missionId}/collection`)}
-              className="bg-lime rounded-xl w-9 h-9 flex items-center justify-center active:scale-95 transition-all"
-              style={{ boxShadow: '0 3px 0 #9aaa00' }}
+              className="w-14 h-14 rounded-[1.25rem] bg-white border border-brown/10 shadow-sm flex items-center justify-center hover:bg-cream transition-all active:scale-95"
             >
-              <span className="text-darkbrown font-bold">ⓘ</span>
+              <Icon name="eye" size={24} className="text-darkbrown drop-shadow-sm" />
             </button>
           </div>
         </div>
