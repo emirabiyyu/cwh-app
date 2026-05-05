@@ -14,6 +14,7 @@ import GameOverModal from '../components/modals/GameOverModal';
 import MissionCard from '../components/ui/MissionCard';
 import LevelCard from '../components/ui/LevelCard';
 import AvatarPicker from '../components/ui/AvatarPicker';
+import CollectionCard from '../components/ui/CollectionCard';
 
 export default function ComponentPreviewPage() {
   return (
@@ -121,6 +122,12 @@ export default function ComponentPreviewPage() {
             <LevelCard levelNumber={1} earnedStars={0} onClick={() => alert('Level 1')} />
             <LevelCard levelNumber={2} earnedStars={3} onClick={() => alert('Level 2')} />
             <LevelCard levelNumber={3} isLocked />
+          </div>
+
+          <span className="text-xs text-darkbrown/60 block mb-3 mt-6">CollectionCard (unlocked, locked)</span>
+          <div className="grid grid-cols-4 gap-3">
+            <CollectionCard label="Sofa" emoji="🛋️" imageSrc="" isUnlocked={true} />
+            <CollectionCard label="Lamp" emoji="💡" imageSrc="" isUnlocked={false} />
           </div>
         </section>
 

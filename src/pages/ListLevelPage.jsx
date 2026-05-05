@@ -46,16 +46,27 @@ export default function ListLevelPage() {
 
         {/* Header dengan tombol kembali & Judul yang memakai class font-heading */}
         <div className="w-full flex items-center mb-8">
-          <button 
-            onClick={() => navigate('/home')}
-            className="w-14 h-14 rounded-[1.25rem] bg-white border border-brown/10 shadow-sm flex items-center justify-center hover:bg-cream transition-all active:scale-95"
-          >
-            <span className="text-2xl drop-shadow-sm" role="img" aria-label="back">⬅️</span>
-          </button>
-          <div className="flex-1 text-center pr-14 flex flex-col justify-center h-14">
+          <div className="w-14">
+            <button 
+              onClick={() => navigate('/home')}
+              className="w-14 h-14 rounded-[1.25rem] bg-white border border-brown/10 shadow-sm flex items-center justify-center hover:bg-cream transition-all active:scale-95"
+            >
+              <span className="text-2xl drop-shadow-sm" role="img" aria-label="back">⬅️</span>
+            </button>
+          </div>
+          <div className="flex-1 text-center flex flex-col justify-center h-14">
             <h1 className="font-heading text-2xl sm:text-3xl text-darkbrown font-black leading-none uppercase tracking-wide">
               {mission.title}
             </h1>
+          </div>
+          <div className="w-14 flex justify-end items-center">
+            <button
+              onClick={() => navigate(`/mission/${missionId}/collection`)}
+              className="bg-lime rounded-xl w-9 h-9 flex items-center justify-center active:scale-95 transition-all"
+              style={{ boxShadow: '0 3px 0 #9aaa00' }}
+            >
+              <span className="text-darkbrown font-bold">ⓘ</span>
+            </button>
           </div>
         </div>
 

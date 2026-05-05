@@ -9,7 +9,7 @@ function shuffle(array) {
   return arr;
 }
 
-export function useGameState({ instructions = [], objects = [], onFinished, onGameOver }) {
+export function useGameState({ instructions = [], objects = [], missionId, onFinished, onGameOver }) {
   const [currentInstructionIndex, setCurrentInstructionIndex] = useState(0);
   const [lives, setLives] = useState(4);
   const [wrongCount, setWrongCount] = useState(0);
@@ -50,6 +50,11 @@ export function useGameState({ instructions = [], objects = [], onFinished, onGa
       setCardStates(prev => ({ ...prev, [clickedId]: 'correct' }));
       setStreak(prev => prev + 1);
 
+      // Simpan kata yang berhasil dikoleksi
+      if (missionId) {
+        localStorage.setItem(`collected_m${missionId}_${clickedId}`, 'true');
+      }
+
       setTimeout(() => {
         const nextIndex = currentInstructionIndex + 1;
         setCardStates({});
@@ -87,7 +92,7 @@ export function useGameState({ instructions = [], objects = [], onFinished, onGa
         }
       }, 800);
     }
-  }, [currentInstructionIndex, instructions, objects, gameStatus, lives, wrongCount, onFinished, onGameOver]);
+  }, [currentInstructionIndex, instructions, objects, gameStatus, lives, wrongCount, missionId, onFinished, onGameOver]);
 
   const handleMissed = useCallback(() => {
     if (gameStatus !== 'playing') return;

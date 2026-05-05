@@ -6,6 +6,7 @@ import HomePage from './pages/HomePage';
 import ListLevelPage from './pages/ListLevelPage';
 import GamePage from './pages/GamePage';
 import ComponentPreviewPage from './pages/ComponentPreviewPage';
+import KoleksiKataPage from './pages/KoleksiKataPage';
 
 function App() {
   const onboardingDone = localStorage.getItem('onboarding_done');
@@ -21,6 +22,7 @@ function App() {
         <Route path="/loading" element={<LoadingPage />} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/mission/:missionId" element={<ListLevelPage />} />
+        <Route path="/mission/:missionId/collection" element={<KoleksiKataPage />} />
         <Route path="/game/:missionId/:levelId" element={<GamePage />} />
         {import.meta.env.DEV && (
           <Route path="/dev" element={<ComponentPreviewPage />} />

@@ -49,6 +49,7 @@ export default function GamePage() {
   const gameState = useGameState({
     instructions: instructions,
     objects: level?.objectsToFind || [],
+    missionId: missionId,
     onFinished: (stars) => {
       setStarsEarned(stars);
       localStorage.setItem(`stars_m${missionId}_l${levelId}`, String(stars));
