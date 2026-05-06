@@ -215,7 +215,7 @@ export default function GamePage() {
         {/* Visual Cues Cepat */}
         {gameState.gameStatus === 'correct' && (
           <div className="absolute inset-x-0 top-[20%] flex justify-center z-30 pointer-events-none animate-bounce drop-shadow-[0_4px_16px_rgba(0,0,0,0.5)]">
-             <div className="bg-lime text-darkbrown font-heading font-black text-2xl px-6 py-3 rounded-full border-4 border-white">
+             <div lang="en" translate="no" className="bg-lime text-darkbrown font-heading font-black text-2xl px-6 py-3 rounded-full border-4 border-white">
                 Tepat Sekali! ✅
              </div>
           </div>
@@ -223,19 +223,19 @@ export default function GamePage() {
         
         {gameState.gameStatus === 'wrong' && (
           <div className="absolute inset-x-0 top-[20%] flex justify-center z-30 pointer-events-none animate-bounce drop-shadow-[0_4px_16px_rgba(0,0,0,0.5)]">
-             <div className="bg-[#FF3B30] text-white font-heading font-black text-2xl px-6 py-3 rounded-full border-4 border-white">
+             <div lang="en" translate="no" className="bg-[#FF3B30] text-white font-heading font-black text-2xl px-6 py-3 rounded-full border-4 border-white">
                 Coba Lagi! ❌
              </div>
           </div>
         )}
 
+      </div>
 
-
-        {/* Floating Soal Progress Counter */}
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-30 flex items-center justify-center font-body text-sm font-bold text-white bg-darkbrown/70 px-5 py-2.5 rounded-[1.25rem] shadow-lg backdrop-blur-sm border border-white/10 tracking-[0.2em] uppercase">
-           {Math.min(gameState.currentInstructionIndex + 1, instructions.length)} / {instructions.length}
+      {/* Floating Soal Progress Counter — di luar scene area agar tidak terkena overflow:hidden */}
+      <div className="relative z-30 flex items-center justify-center -mt-10 mb-2 pointer-events-none">
+        <div className="font-body text-sm font-bold text-white bg-darkbrown/70 px-5 py-2.5 rounded-[1.25rem] shadow-lg backdrop-blur-sm border border-white/10 tracking-[0.2em] uppercase pointer-events-auto">
+          {Math.min(gameState.currentInstructionIndex + 1, instructions.length)} / {instructions.length}
         </div>
-
       </div>
 
       {/* 4. Semua Modal (memakai isOpen) */}

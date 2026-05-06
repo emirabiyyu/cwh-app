@@ -15,7 +15,7 @@ export default function InstructionBar({ instructionText, timerPercent = 100 }) 
 
   return (
     <div className="bg-white rounded-[20px] p-2 w-full flex flex-col gap-1 shadow-sm">
-      <div className="text-xl font-heading font-bold text-center text-black py-1">
+      <div lang="en" translate="no" className="text-xl font-heading font-bold text-center text-black py-1">
         {instructionText}
       </div>
       
