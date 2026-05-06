@@ -4,6 +4,11 @@ import levelsData from '../data/levels.json';
 import MissionCard from '../components/ui/MissionCard';
 import Modal from '../components/ui/Modal';
 import Button from '../components/ui/Button';
+import Avatar1 from '@/assets/avatar/avatar_1.png';
+import Avatar2 from '@/assets/avatar/avatar_2.png';
+import Avatar3 from '@/assets/avatar/avatar_3.png';
+import Avatar4 from '@/assets/avatar/avatar_4.png';
+import Avatar5 from '@/assets/avatar/avatar_5.png';
 
 export default function HomePage() {
   const navigate = useNavigate();
@@ -13,13 +18,13 @@ export default function HomePage() {
   const [earnedM1, setEarnedM1] = useState(0);
   const [earnedM2, setEarnedM2] = useState(0);
 
-  // Map avatar ID ke path gambar
+  // Map avatar ID ke path gambar (menggunakan import agar Vite resolve dengan benar)
   const avatarMap = {
-    avatar_1: '/src/assets/avatar/avatar_1.png',
-    avatar_2: '/src/assets/avatar/avatar_2.png',
-    avatar_3: '/src/assets/avatar/avatar_3.png',
-    avatar_4: '/src/assets/avatar/avatar_4.png',
-    avatar_5: '/src/assets/avatar/avatar_5.png',
+    avatar_1: Avatar1,
+    avatar_2: Avatar2,
+    avatar_3: Avatar3,
+    avatar_4: Avatar4,
+    avatar_5: Avatar5,
   };
 
   useEffect(() => {
