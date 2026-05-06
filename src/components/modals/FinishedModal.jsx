@@ -27,17 +27,14 @@ export default function FinishedModal({ isOpen, stars = 0, onHome, onNext, onRet
 
         {/* Buttons */}
         <div className="flex items-center gap-2">
-          <Button variant="secondary" onClick={onHome}>
+          <Button variant={isLastLevel ? 'primary' : 'secondary'} onClick={onHome}>
             Ke Beranda
           </Button>
-          <Button 
-            variant="primary" 
-            onClick={isLastLevel ? undefined : onNext}
-            disabled={isLastLevel}
-            className={isLastLevel ? 'opacity-50 cursor-not-allowed' : ''}
-          >
-            {isLastLevel ? 'Level Terakhir' : 'Lanjut'}
-          </Button>
+          {!isLastLevel && (
+            <Button variant="primary" onClick={onNext}>
+              Lanjut Level
+            </Button>
+          )}
         </div>
       </div>
     </Modal>

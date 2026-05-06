@@ -53,6 +53,10 @@ export default function GamePage() {
     onFinished: (stars) => {
       setStarsEarned(stars);
       localStorage.setItem(`stars_m${missionId}_l${levelId}`, String(stars));
+      // Simpan semua objek level ini ke koleksi
+      (level?.objectsToFind || []).forEach(obj => {
+        localStorage.setItem(`collected_m${missionId}_${obj.id}`, 'true');
+      });
     },
     onGameOver: () => {}
   });
