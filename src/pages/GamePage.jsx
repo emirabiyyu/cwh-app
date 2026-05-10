@@ -179,8 +179,7 @@ export default function GamePage() {
         ref={sceneRef} 
         className="flex-1 relative overflow-hidden"
         style={{ 
-          paddingBottom: '16px',
-          pointerEvents: gameState.gameStatus === 'transitioning' ? 'none' : 'auto'
+          paddingBottom: '16px'
         }}
         onPointerDown={(e) => spotlight.handlers.onPointerDown(e)}
         onPointerMove={(e) => spotlight.handlers.onPointerMove(e, cardRefs.current)}
