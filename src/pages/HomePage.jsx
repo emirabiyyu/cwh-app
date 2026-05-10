@@ -4,6 +4,7 @@ import levelsData from '../data/levels.json';
 import MissionCard from '../components/ui/MissionCard';
 import Modal from '../components/ui/Modal';
 import Button from '../components/ui/Button';
+import Icon from '../components/ui/Icon';
 import Avatar1 from '@/assets/avatar/avatar_1.png';
 import Avatar2 from '@/assets/avatar/avatar_2.png';
 import Avatar3 from '@/assets/avatar/avatar_3.png';
@@ -98,7 +99,7 @@ export default function HomePage() {
         
         {/* Total Stars Badge */}
         <div className="bg-cream border border-brown/5 rounded-[20px] px-5 py-4 flex items-center justify-center gap-2 shadow-[0_4px_12px_rgba(0,0,0,0.05),inset_0_-4px_0_rgba(235,228,218,1)]">
-          <span className="text-2xl drop-shadow-sm" role="img" aria-label="star">⭐</span>
+          <Icon name="star-active" size={28} className="drop-shadow-sm" />
           <span className="font-heading font-black text-2xl text-darkbrown">
             {totalStars}
           </span>
