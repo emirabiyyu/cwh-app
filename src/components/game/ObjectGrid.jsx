@@ -3,7 +3,7 @@ import ObjectCard from './ObjectCard';
 
 export default function ObjectGrid({ objects = [], cardStates = {}, onCardRef }) {
   return (
-    <div className="grid grid-cols-2 grid-rows-4 gap-x-4 gap-y-3 w-full h-[90%] p-5 overflow-hidden place-items-stretch">
+    <div className="grid grid-cols-2 grid-rows-4 w-full h-[90%] p-5 overflow-hidden place-items-stretch" style={{ gap: 'clamp(8px, 2vw, 12px)' }}>
       {objects.map((obj) => (
         <ObjectCard
           key={obj.id}

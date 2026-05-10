@@ -10,6 +10,7 @@ import ArrowLeft from '@/assets/icons/arrow-left.svg?react';
 import CheckIcon from '@/assets/icons/check.svg?react';
 import XMark from '@/assets/icons/x-mark.svg?react';
 import EyeIcon from '@/assets/icons/eye.svg?react';
+import BookIcon from '@/assets/icons/book.svg?react';
 
 const iconMap = {
   'heart-active': HeartActive,
@@ -23,6 +24,7 @@ const iconMap = {
   'check': CheckIcon,
   'x-mark': XMark,
   'eye': EyeIcon,
+  'book': BookIcon,
 };
 
 export default function Icon({ name, size = 24, className = '' }) {

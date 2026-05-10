@@ -105,8 +105,8 @@ export default function GamePage() {
 
   // Reset timer tiap kali pindah instruksi (barusan menjawab benar)
   useEffect(() => {
+    timer.reset();
     if (gameState.gameStatus === 'playing' && !isTutorialOpen && !isPaused) {
-      timer.reset();
       timer.start();
     }
   }, [gameState.currentInstructionIndex]);
@@ -178,7 +178,10 @@ export default function GamePage() {
       <div 
         ref={sceneRef} 
         className="flex-1 relative overflow-hidden"
-        style={{ paddingBottom: '16px' }}
+        style={{ 
+          paddingBottom: '16px',
+          pointerEvents: gameState.gameStatus === 'transitioning' ? 'none' : 'auto'
+        }}
         onPointerDown={(e) => spotlight.handlers.onPointerDown(e)}
         onPointerMove={(e) => spotlight.handlers.onPointerMove(e, cardRefs.current)}
         onPointerUp={(e) => spotlight.handlers.onPointerUp(e, (x, y) => {
@@ -194,6 +197,13 @@ export default function GamePage() {
           draggable="false"
           onError={(e) => { e.target.style.display = 'none' }}
         />
+
+        {/* Floating Soal Progress Counter (Top Inside Scene) */}
+        <div className="absolute top-3 inset-x-0 z-30 flex items-center justify-center pointer-events-none">
+          <div className="font-body text-sm font-bold text-darkbrown bg-white/95 px-5 py-1.5 rounded-[1.25rem] shadow-md border border-brown/5 tracking-[0.2em] uppercase pointer-events-auto backdrop-blur-sm">
+            {Math.min(gameState.currentInstructionIndex + 1, instructions.length)} / {instructions.length}
+          </div>
+        </div>
 
         {/* Kotak Objek Grid */}
         <ObjectGrid 
@@ -231,12 +241,7 @@ export default function GamePage() {
 
       </div>
 
-      {/* Floating Soal Progress Counter — di luar scene area agar tidak terkena overflow:hidden */}
-      <div className="relative z-30 flex items-center justify-center -mt-10 mb-2 pointer-events-none">
-        <div className="font-body text-sm font-bold text-white bg-darkbrown/70 px-5 py-2.5 rounded-[1.25rem] shadow-lg backdrop-blur-sm border border-white/10 tracking-[0.2em] uppercase pointer-events-auto">
-          {Math.min(gameState.currentInstructionIndex + 1, instructions.length)} / {instructions.length}
-        </div>
-      </div>
+
 
       {/* 4. Semua Modal (memakai isOpen) */}
       <TutorialModal 

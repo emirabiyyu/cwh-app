@@ -21,10 +21,14 @@ export default function InstructionBar({ instructionText, timerPercent = 100 }) 
       
       <div className="px-2 pb-2">
         {/* Track */}
-        <div className="w-full h-2 bg-[#C4BBFE]/30 rounded-full relative">
+        <div className="w-full h-4 bg-gray-200 rounded-full relative">
           {/* Fill */}
           <div 
-            className={`absolute top-0 left-0 h-full rounded-full transition-all duration-300 ease-out ${barColor} ${shadowStyle}`}
+            className={`absolute top-0 left-0 h-full rounded-full transition-all duration-100 ease-out ${
+              clampedPercent > 30
+                ? 'bg-[#8071E3]'
+                : 'bg-[#FF3B30] animate-pulse'
+            } ${shadowStyle}`}
             style={{ width: `${clampedPercent}%` }}
           />
         </div>

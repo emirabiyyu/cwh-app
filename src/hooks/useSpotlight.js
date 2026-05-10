@@ -19,7 +19,7 @@ export function useSpotlight(sceneRef) {
   const onPointerDown = useCallback((e) => {
     e.currentTarget.setPointerCapture(e.pointerId);
     setHolding(true);
-    setSpotR('90px');
+    setSpotR('110px');
     updatePosition(e.clientX, e.clientY);
   }, [updatePosition]);
 

@@ -70,7 +70,10 @@ export function useGameState({ instructions = [], objects = [], missionId, onFin
           if (onFinished) onFinished(stars);
         } else {
           setCurrentInstructionIndex(nextIndex);
-          setGameStatus('playing');
+          setGameStatus('transitioning');
+          setTimeout(() => {
+            setGameStatus('playing');
+          }, 1200);
         }
       }, 800);
     } else {

@@ -31,6 +31,10 @@ export default function KoleksiKataPage() {
 
   const totalCollected = allObjects.filter(obj => isCollected(obj.id)).length;
 
+  React.useEffect(() => {
+    localStorage.setItem(`collection_last_count_m${missionId}`, totalCollected.toString());
+  }, [missionId, totalCollected]);
+
   return (
     <div className="bg-cream min-h-screen flex flex-col relative overflow-hidden animate-fadeIn">
       {/* Container */}

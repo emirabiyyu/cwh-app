@@ -50,6 +50,7 @@ export default function ObjectCard({ id, label, imageSrc, emoji, state = 'defaul
       ref={cardRef}
       onClick={onClick}
       className={`${baseStyles} ${stateStyles}`}
+      style={{ minWidth: '44px', minHeight: '44px' }}
     >
       {/* Object image or Emoji fallback */}
       {!imageFailed && imageSrc ? (
@@ -70,9 +71,11 @@ export default function ObjectCard({ id, label, imageSrc, emoji, state = 'defaul
       )}
 
       {/* Label */}
-      <span className="font-body text-xs text-darkbrown/80 text-center truncate w-full">
-        {label}
-      </span>
+      {state === 'correct' && (
+        <span className="font-body text-xs text-darkbrown text-center mt-1">
+          {label}
+        </span>
+      )}
 
       {/* Badge overlay for correct/wrong */}
       {badgeEl}
