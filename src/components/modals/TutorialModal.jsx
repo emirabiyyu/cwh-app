@@ -2,6 +2,12 @@ import React, { useState } from 'react';
 import Modal from '../ui/Modal';
 import Button from '../ui/Button';
 
+import T1 from '@/assets/illustrations/illustration-tutorial-1.svg';
+import T2 from '@/assets/illustrations/illustration-tutorial-2.svg';
+import T3 from '@/assets/illustrations/illustration-tutorial-3.svg';
+
+const stepIllustrations = [T1, T2, T3];
+
 const STEPS = [
   {
     title: 'Step 1',
@@ -36,17 +42,12 @@ export default function TutorialModal({ isOpen, onComplete }) {
     <Modal isOpen={isOpen}>
       {/* Figma: bg #FFF3E7, rounded-[40px], padding 28/76, gap 20, vertical center */}
       <div className="flex flex-col items-center gap-5 bg-[#FFF3E7] rounded-[40px] p-7 -m-6">
-        {/* Illustration placeholder */}
-        <div className="w-[88px] h-[88px] rounded-[76px] bg-white flex items-center justify-center overflow-hidden">
-          <img
-            src={step.illustration}
-            alt={step.title}
-            className="w-full h-full object-contain"
-            onError={(e) => {
-              e.currentTarget.style.display = 'none';
-            }}
-          />
-        </div>
+        {/* Illustration */}
+        <img
+          src={stepIllustrations[currentStep]}
+          alt={`Tutorial step ${currentStep + 1}`}
+          className="w-32 h-32 mx-auto object-contain"
+        />
 
         {/* Text content — Figma: title Inter Tight Medium 20px, desc Inter Tight Regular 14px */}
         <div className="flex flex-col items-center gap-2 w-full">
