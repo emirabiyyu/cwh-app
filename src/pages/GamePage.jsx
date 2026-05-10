@@ -34,6 +34,37 @@ export default function GamePage() {
   const [isTutorialOpen, setIsTutorialOpen] = useState(showTutorialInit);
   const [isTimeoutOpen, setIsTimeoutOpen] = useState(false);
 
+  // Loading preparing state
+  const [isPreparing, setIsPreparing] = useState(true);
+  const [prepareProgress, setPrepareProgress] = useState(0);
+
+  useEffect(() => {
+    const duration = 1500; // 1.5 detik loading
+    const intervalTime = 50;
+    const increment = 100 / (duration / intervalTime);
+
+    const timerInterval = setInterval(() => {
+      setPrepareProgress((prev) => {
+        if (prev >= 100) {
+          clearInterval(timerInterval);
+          return 100;
+        }
+        return prev + increment;
+      });
+    }, intervalTime);
+
+    return () => clearInterval(timerInterval);
+  }, []);
+
+  useEffect(() => {
+    if (prepareProgress >= 100) {
+      const timeout = setTimeout(() => {
+        setIsPreparing(false);
+      }, 300);
+      return () => clearTimeout(timeout);
+    }
+  }, [prepareProgress]);
+
   // Acak instruksi: ambil maksimal 6 pertanyaan dari total objek di dalam level
   const instructions = React.useMemo(() => {
     if (!level) return [];
@@ -96,23 +127,56 @@ export default function GamePage() {
   
   // Pause / Resume otomatis berdasarkan status
   useEffect(() => {
-    if (gameState.gameStatus === 'playing' && !isTutorialOpen && !isPaused) {
+    if (gameState.gameStatus === 'playing' && !isTutorialOpen && !isPaused && !isPreparing) {
       timer.start();
     } else {
       timer.pause();
     }
-  }, [gameState.gameStatus, isTutorialOpen, isPaused]);
+  }, [gameState.gameStatus, isTutorialOpen, isPaused, isPreparing]);
 
   // Reset timer tiap kali pindah instruksi (barusan menjawab benar)
   useEffect(() => {
     timer.reset();
-    if (gameState.gameStatus === 'playing' && !isTutorialOpen && !isPaused) {
+    if (gameState.gameStatus === 'playing' && !isTutorialOpen && !isPaused && !isPreparing) {
       timer.start();
     }
   }, [gameState.currentInstructionIndex]);
   
   // Guard
   if (!mission || !level) return <div className="p-8">Misi atau Level tidak ditemukan</div>;
+
+  const currentLevelIdx = mission.levels.findIndex(l => l.id === levelId);
+
+  // Tampilan Preparing/Loading
+  if (isPreparing) {
+    return (
+      <div className="min-h-screen bg-sand flex flex-col items-center justify-center p-6 sm:p-8 relative overflow-hidden animate-fadeIn" style={{ height: '100dvh', width: '100vw' }}>
+        <div className="absolute top-[-5%] left-[-10%] w-64 h-64 bg-lime/20 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="absolute bottom-[-10%] right-[-10%] w-72 h-72 bg-[#5AC8FA]/20 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div className="w-full max-w-sm flex flex-col items-center z-10">
+          <div className="w-24 h-24 sm:w-32 sm:h-32 mb-8 bg-cream border-4 border-white rounded-[2rem] shadow-sm flex items-center justify-center animate-pulse">
+            <span className="text-[4rem] sm:text-[5rem]" role="img" aria-label="loading">⏳</span>
+          </div>
+
+          <h1 className="font-heading text-2xl sm:text-3xl text-darkbrown font-black mb-8 tracking-tight drop-shadow-sm text-center">
+            Masuk ke Level {currentLevelIdx + 1}...
+          </h1>
+
+          <div className="w-full h-6 bg-white rounded-full p-[3px] shadow-[inset_0_2px_4px_rgba(0,0,0,0.05)] border border-brown/10 overflow-hidden">
+            <div 
+              className="h-full bg-lime rounded-full transition-all duration-75 ease-linear shadow-[inset_0_-2px_0_0_#B9BE1A] relative"
+              style={{ width: `${Math.min(prepareProgress, 100)}%` }}
+            >
+            </div>
+          </div>
+          <p className="font-body text-brown text-sm font-bold mt-4 uppercase tracking-widest opacity-80">
+            {Math.floor(prepareProgress)}%
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   // Render Logic Effective Card States
   const effectiveCardStates = {
@@ -125,7 +189,6 @@ export default function GamePage() {
   const currentInst = instructions[gameState.currentInstructionIndex];
   const instructionText = currentInst ? `Find the ${currentInst.name}` : 'Good Job!';
 
-  const currentLevelIdx = mission.levels.findIndex(l => l.id === levelId);
   const isLastLevel = currentLevelIdx === mission.levels.length - 1;
 
   const handleNextLevel = () => {
