@@ -193,7 +193,7 @@ export default function GamePage() {
         <img
           src={mission.sceneImage}
           alt="Scene background"
-          className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+          className="absolute inset-0 w-full h-full object-cover pointer-events-none brightness-[0.55]"
           draggable="false"
           onError={(e) => { e.target.style.display = 'none' }}
         />
