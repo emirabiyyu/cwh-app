@@ -37,7 +37,7 @@
           },
           {
             "id": "obj_rug",
-            "name": "Rug",
+            "name": "Carpet",
             "colorCode": "#808080",
             "image": "/assets/objects/obj_rug.png",
             "emoji": "🧶"
