@@ -4,6 +4,7 @@ export function useTimer({ duration = 20, onExpire }) {
   // duration in seconds, timeLeft in milliseconds
   const [timeLeft, setTimeLeft] = useState(duration * 1000);
   const [isRunning, setIsRunning] = useState(false);
+  const intervalRef = useRef(null);
 
   const onExpireRef = useRef(onExpire);
   
@@ -26,6 +27,7 @@ export function useTimer({ duration = 20, onExpire }) {
         const newTime = prevTime - 100;
         if (newTime <= 0) {
           clearInterval(intervalId);
+          intervalRef.current = null;
           setIsRunning(false);
           if (onExpireRef.current) {
             onExpireRef.current();
@@ -36,17 +38,41 @@ export function useTimer({ duration = 20, onExpire }) {
       });
     }, 100);
 
-    return () => clearInterval(intervalId);
+    intervalRef.current = intervalId;
+
+    return () => {
+      clearInterval(intervalId);
+      intervalRef.current = null;
+    };
   }, [isRunning]);
 
   // timePercent goes from 100 to 0
   const timePercent = Math.max(0, Math.min(100, (timeLeft / (duration * 1000)) * 100));
+
+  const penalize = useCallback((seconds = 4) => {
+    setTimeLeft(prev => {
+      const penaltyMs = seconds * 1000;
+      const newTime = Math.max(0, prev - penaltyMs);
+      if (newTime <= 0) {
+        if (intervalRef.current) {
+          clearInterval(intervalRef.current);
+          intervalRef.current = null;
+        }
+        setIsRunning(false);
+        if (onExpireRef.current) {
+          onExpireRef.current();
+        }
+      }
+      return newTime;
+    });
+  }, []);
 
   return {
     timePercent,
     isRunning,
     start,
     pause,
-    reset
+    reset,
+    penalize
   };
 }

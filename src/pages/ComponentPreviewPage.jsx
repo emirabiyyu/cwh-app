@@ -166,27 +166,9 @@ export default function ComponentPreviewPage() {
           </h2>
           <div className="flex flex-col gap-6 w-full bg-white/30 rounded-xl p-4 border border-darkbrown/10">
             <div className="w-full">
-              <span className="text-xs text-darkbrown/60 block mb-2">HudBar (lives=4)</span>
+              <span className="text-xs text-darkbrown/60 block mb-2">HudBar</span>
               <div className="bg-cream/50 rounded-xl border border-darkbrown/5">
-                <HudBar levelLabel="Level 1" lives={4} onPause={() => alert('Paused!')} />
-              </div>
-            </div>
-            <div className="w-full">
-              <span className="text-xs text-darkbrown/60 block mb-2">HudBar (lives=2)</span>
-              <div className="bg-cream/50 rounded-xl border border-darkbrown/5">
-                <HudBar levelLabel="Level 20" lives={2} onPause={() => alert('Paused!')} />
-              </div>
-            </div>
-            <div className="w-full">
-              <span className="text-xs text-darkbrown/60 block mb-2">HudBar (lives=1)</span>
-              <div className="bg-cream/50 rounded-xl border border-darkbrown/5">
-                <HudBar levelLabel="Level 25" lives={1} onPause={() => alert('Paused!')} />
-              </div>
-            </div>
-            <div className="w-full">
-              <span className="text-xs text-darkbrown/60 block mb-2">HudBar (lives=0)</span>
-              <div className="bg-cream/50 rounded-xl border border-darkbrown/5">
-                <HudBar levelLabel="Level 35" lives={0} onPause={() => alert('Paused!')} />
+                <HudBar levelLabel="Level 1" onPause={() => alert('Paused!')} />
               </div>
             </div>
             

@@ -76,6 +76,11 @@ export default function GamePage() {
     return arr.slice(0, 6);
   }, [missionId, levelId, level]);
 
+  // handleWrongAnswer — callback penalti timer
+  const handleWrongAnswer = () => {
+    timer.penalize(4);
+  };
+
   // Inisialisasi GameState
   const gameState = useGameState({
     instructions: instructions,
@@ -89,13 +94,9 @@ export default function GamePage() {
         localStorage.setItem(`collected_m${missionId}_${obj.id}`, 'true');
       });
     },
-    onGameOver: () => {}
+    onGameOver: () => {},
+    onWrongAnswer: handleWrongAnswer
   });
-
-  const livesRef = useRef(4);
-  useEffect(() => {
-    livesRef.current = gameState.lives;
-  }, [gameState.lives]);
 
   const handleRetry = () => {
     gameState.resetState();
@@ -224,7 +225,6 @@ export default function GamePage() {
       {/* 1. HudBar */}
       <HudBar 
         levelLabel={`Level ${(mission?.levels.findIndex(l => l.id === levelId) ?? 0) + 1}`}
-        lives={gameState.lives} 
         onPause={() => {
           timer.pause();
           setIsPaused(true);
