@@ -88,7 +88,7 @@ export default function ListLevelPage() {
             >
               <Icon name="book" size={24} className="text-darkbrown drop-shadow-sm" />
               {hasNewWords && (
-                <div className="w-3 h-3 bg-red-500 rounded-full absolute -top-1 -right-1 border-2 border-white"></div>
+                <div className="w-4 h-4 bg-red-500 rounded-full absolute -top-1 -right-1 border-2 border-white"></div>
               )}
             </button>
           </div>

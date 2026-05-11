@@ -80,8 +80,8 @@ export default function HomePage() {
       <div className="absolute bottom-[-10%] left-[-10%] w-72 h-72 bg-[#5AC8FA]/10 rounded-full blur-3xl pointer-events-none"></div>
 
       {/* Header Profile Area */}
-      <div className="flex items-center justify-between mb-12 mt-4 relative z-10">
-        <div className="flex items-center gap-3">
+      <div className="flex items-center justify-between mb-12 mt-4 relative z-10 gap-4">
+        <div className="flex items-center gap-3 min-w-0">
           {/* Avatar */}
           {playerAvatar && avatarMap[playerAvatar] && (
             <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-lime shadow-md flex-shrink-0 bg-[#FFF3E7]">
@@ -92,13 +92,13 @@ export default function HomePage() {
               />
             </div>
           )}
-          <h1 className="font-heading text-3xl sm:text-4xl text-darkbrown font-black tracking-tight drop-shadow-sm">
-            Halo, {playerName}!
+          <h1 className="font-heading text-3xl sm:text-4xl text-darkbrown font-black tracking-tight drop-shadow-sm truncate">
+            {playerName}
           </h1>
         </div>
         
         {/* Total Stars Badge */}
-        <div className="bg-cream border border-brown/5 rounded-[20px] px-5 py-4 flex items-center justify-center gap-2 shadow-[0_4px_12px_rgba(0,0,0,0.05),inset_0_-4px_0_rgba(235,228,218,1)]">
+        <div className="bg-cream border border-brown/5 rounded-[20px] px-5 py-4 flex items-center justify-center gap-2 shadow-[0_4px_12px_rgba(0,0,0,0.05),inset_0_-4px_0_rgba(235,228,218,1)] flex-shrink-0">
           <Icon name="star-active" size={28} className="drop-shadow-sm" />
           <span className="font-heading font-black text-2xl text-darkbrown">
             {totalStars}
