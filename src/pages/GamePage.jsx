@@ -283,7 +283,11 @@ export default function GamePage() {
         onPause={() => {
           timer.pause();
           setIsPaused(true);
-        }} 
+        }}
+        onInfo={() => {
+          timer.pause();
+          setIsTutorialOpen(true);
+        }}
       />
 
       {/* 2. InstructionBar */}
@@ -393,7 +397,10 @@ export default function GamePage() {
         onComplete={() => {
           localStorage.setItem('tutorial_shown', 'true');
           setIsTutorialOpen(false);
-          timer.start();
+          // Resume timer jika countdown sudah selesai
+          if (countdown <= 0 && gameState.gameStatus === 'playing' && !isPaused) {
+            timer.start();
+          }
         }} 
       />
 

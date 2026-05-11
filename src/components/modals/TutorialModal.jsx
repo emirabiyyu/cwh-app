@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Modal from '../ui/Modal';
 import Button from '../ui/Button';
 
@@ -28,6 +28,11 @@ const STEPS = [
 
 export default function TutorialModal({ isOpen, onComplete }) {
   const [currentStep, setCurrentStep] = useState(0);
+
+  // Reset ke step 1 setiap kali modal dibuka
+  useEffect(() => {
+    if (isOpen) setCurrentStep(0);
+  }, [isOpen]);
 
   const handleNext = () => {
     if (currentStep < STEPS.length - 1) {

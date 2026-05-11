@@ -11,6 +11,7 @@ import CheckIcon from '@/assets/icons/check.svg?react';
 import XMark from '@/assets/icons/x-mark.svg?react';
 import EyeIcon from '@/assets/icons/eye.svg?react';
 import BookIcon from '@/assets/icons/book.svg?react';
+import InfoIcon from '@/assets/icons/info.svg?react';
 
 const iconMap = {
   'heart-active': HeartActive,
@@ -25,6 +26,7 @@ const iconMap = {
   'x-mark': XMark,
   'eye': EyeIcon,
   'book': BookIcon,
+  'info': InfoIcon,
 };
 
 export default function Icon({ name, size = 24, className = '' }) {
