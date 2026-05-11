@@ -57,7 +57,7 @@ export default function ObjectCard({ id, label, imageSrc, emoji, state = 'defaul
         <img
           src={imageSrc}
           alt={label}
-          className="w-full h-[85%] object-contain scale-[1.15] pointer-events-none drop-shadow-sm"
+          className="w-full h-[90%] object-contain scale-[1.25] pointer-events-none drop-shadow-sm"
           onError={() => setImageFailed(true)}
           draggable={false}
         />
