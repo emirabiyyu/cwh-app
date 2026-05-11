@@ -16,6 +16,11 @@ import GameOverModal from '../components/modals/GameOverModal';
 import Modal from '../components/ui/Modal';
 import Button from '../components/ui/Button';
 
+// ============ GAME CONFIG — adjust di sini ============
+const TIMER_DURATION = 20;       // durasi timer per level (detik)
+const WRONG_PENALTY  = 4;        // pengurangan waktu saat salah jawab (detik)
+// ======================================================
+
 export default function GamePage() {
   const { missionId, levelId } = useParams();
   const navigate = useNavigate();
@@ -115,7 +120,7 @@ export default function GamePage() {
 
   // handleWrongAnswer — callback penalti timer
   const handleWrongAnswer = () => {
-    timer.penalize(4);
+    timer.penalize(WRONG_PENALTY);
   };
 
   // Inisialisasi GameState
@@ -143,7 +148,7 @@ export default function GamePage() {
 
   // Inisialisasi Timer
   const timer = useTimer({
-    duration: 20,
+    duration: TIMER_DURATION,
     onExpire: () => {
       gameState.handleMissed();
       timer.pause();

@@ -5,7 +5,7 @@ export default function ObjectCard({ id, label, imageSrc, emoji, state = 'defaul
   const [imageFailed, setImageFailed] = React.useState(false);
 
   // Base styles shared across all states — from Figma: rounded-[20px], padding 8px, vertical layout
-  const baseStyles = "relative flex flex-col items-center justify-center gap-1 rounded-[20px] p-2 bg-white transition-all w-full aspect-[1.2/1] overflow-hidden cursor-pointer select-none";
+  const baseStyles = "relative flex flex-col items-center justify-center gap-1 rounded-[20px] p-2 bg-white transition-all w-full aspect-[1.4/1] overflow-hidden cursor-pointer select-none";
 
   // Per-state border styles from Figma specs
   let stateStyles = '';
@@ -57,7 +57,7 @@ export default function ObjectCard({ id, label, imageSrc, emoji, state = 'defaul
         <img
           src={imageSrc}
           alt={label}
-          className="w-full h-[90%] object-contain scale-[1.25] pointer-events-none drop-shadow-sm"
+          className="w-full h-[95%] object-contain scale-[1.4] pointer-events-none drop-shadow-sm"
           onError={() => setImageFailed(true)}
           draggable={false}
         />
