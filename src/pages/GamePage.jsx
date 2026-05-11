@@ -34,17 +34,20 @@ export default function GamePage() {
   const [isTutorialOpen, setIsTutorialOpen] = useState(showTutorialInit);
   const [isTimeoutOpen, setIsTimeoutOpen] = useState(false);
 
-  // Loading preparing state
+  // Loading preparing state — preload aset + minimum durasi tampil
   const [isPreparing, setIsPreparing] = useState(true);
   const [prepareProgress, setPrepareProgress] = useState(0);
+  const [assetsReady, setAssetsReady] = useState(false);
+  const [minTimeReady, setMinTimeReady] = useState(false);
 
+  // Minimum durasi loading screen (1.5 detik) dengan animasi progress
   useEffect(() => {
-    const duration = 1500; // 1.5 detik loading
+    const duration = 1500;
     const intervalTime = 50;
     const increment = 100 / (duration / intervalTime);
 
     const timerInterval = setInterval(() => {
-      setPrepareProgress((prev) => {
+      setPrepareProgress(prev => {
         if (prev >= 100) {
           clearInterval(timerInterval);
           return 100;
@@ -53,17 +56,51 @@ export default function GamePage() {
       });
     }, intervalTime);
 
-    return () => clearInterval(timerInterval);
+    const minTimer = setTimeout(() => {
+      setMinTimeReady(true);
+    }, duration);
+
+    return () => {
+      clearInterval(timerInterval);
+      clearTimeout(minTimer);
+    };
   }, []);
 
+  // Preload semua gambar (scene + objects) selama loading
   useEffect(() => {
-    if (prepareProgress >= 100) {
-      const timeout = setTimeout(() => {
-        setIsPreparing(false);
-      }, 300);
+    if (!mission || !level) { setAssetsReady(true); return; }
+
+    const imageUrls = [
+      mission.sceneImage,
+      ...level.objectsToFind.map(obj => obj.image).filter(Boolean)
+    ].filter(Boolean);
+
+    if (imageUrls.length === 0) { setAssetsReady(true); return; }
+
+    let loaded = 0;
+    const total = imageUrls.length;
+
+    imageUrls.forEach(url => {
+      const img = new Image();
+      img.onload = img.onerror = () => {
+        loaded++;
+        if (loaded >= total) setAssetsReady(true);
+      };
+      img.src = url;
+    });
+
+    // Fallback — maks 5 detik tunggu aset
+    const fallback = setTimeout(() => setAssetsReady(true), 5000);
+    return () => clearTimeout(fallback);
+  }, [mission, level]);
+
+  // Selesai saat DUA-DUANYA siap: minimum waktu + aset ter-load
+  useEffect(() => {
+    if (assetsReady && minTimeReady) {
+      const timeout = setTimeout(() => setIsPreparing(false), 300);
       return () => clearTimeout(timeout);
     }
-  }, [prepareProgress]);
+  }, [assetsReady, minTimeReady]);
 
   // Acak instruksi: ambil maksimal 6 pertanyaan dari total objek di dalam level
   const instructions = React.useMemo(() => {
