@@ -39,6 +39,10 @@ export default function GamePage() {
   const [isTutorialOpen, setIsTutorialOpen] = useState(showTutorialInit);
   const [isTimeoutOpen, setIsTimeoutOpen] = useState(false);
 
+  // Countdown 3-2-1 sebelum timer mulai
+  const [countdown, setCountdown] = useState(3); // 3, 2, 1, 0 (0 = mulai)
+  const isWaitingStart = countdown > 0;
+
   // Loading preparing state — preload aset + minimum durasi tampil
   const [isPreparing, setIsPreparing] = useState(true);
   const [prepareProgress, setPrepareProgress] = useState(0);
@@ -141,9 +145,9 @@ export default function GamePage() {
   });
 
   const handleRetry = () => {
+    setCountdown(3);
     gameState.resetState();
     timer.reset();
-    timer.start();
   };
 
   // Inisialisasi Timer
@@ -158,29 +162,38 @@ export default function GamePage() {
 
   const handleTimeoutRetry = () => {
     setIsTimeoutOpen(false);
+    setCountdown(3);
     gameState.resetState();
     timer.reset();
-    timer.start();
   };
 
   // Inisialisasi Spotlight
   const spotlight = useSpotlight(sceneRef);
 
   // --- Efek dan Siklus Timer ---
+
+  // Countdown 3-2-1 otomatis setelah loading & tutorial selesai
+  useEffect(() => {
+    if (isPreparing || isTutorialOpen || countdown <= 0) return;
+    const tick = setTimeout(() => {
+      setCountdown(prev => prev - 1);
+    }, 1000);
+    return () => clearTimeout(tick);
+  }, [countdown, isPreparing, isTutorialOpen]);
   
   // Pause / Resume otomatis berdasarkan status
   useEffect(() => {
-    if (gameState.gameStatus === 'playing' && !isTutorialOpen && !isPaused && !isPreparing) {
+    if (gameState.gameStatus === 'playing' && !isTutorialOpen && !isPaused && !isPreparing && !isWaitingStart) {
       timer.start();
     } else {
       timer.pause();
     }
-  }, [gameState.gameStatus, isTutorialOpen, isPaused, isPreparing]);
+  }, [gameState.gameStatus, isTutorialOpen, isPaused, isPreparing, isWaitingStart]);
 
   // Reset timer tiap kali pindah instruksi (barusan menjawab benar)
   useEffect(() => {
     timer.reset();
-    if (gameState.gameStatus === 'playing' && !isTutorialOpen && !isPaused && !isPreparing) {
+    if (gameState.gameStatus === 'playing' && !isTutorialOpen && !isPaused && !isPreparing && !isWaitingStart) {
       timer.start();
     }
   }, [gameState.currentInstructionIndex]);
@@ -308,6 +321,33 @@ export default function GamePage() {
             {Math.min(gameState.currentInstructionIndex + 1, instructions.length)} / {instructions.length}
           </div>
         </div>
+
+        {/* Countdown 3-2-1 overlay */}
+        {isWaitingStart && !isTutorialOpen && (
+          <div
+            className="absolute inset-0 z-40 flex flex-col items-center justify-center"
+            style={{ background: 'rgba(0,0,0,0.85)' }}
+          >
+            <span
+              key={countdown}
+              className="font-heading font-black text-white drop-shadow-lg"
+              style={{
+                fontSize: 'clamp(5rem, 20vw, 8rem)',
+                animation: 'countPop 0.9s ease-out',
+              }}
+            >
+              {countdown}
+            </span>
+            <style>{`
+              @keyframes countPop {
+                0% { transform: scale(2); opacity: 0; }
+                30% { transform: scale(1); opacity: 1; }
+                80% { transform: scale(1); opacity: 1; }
+                100% { transform: scale(0.8); opacity: 0; }
+              }
+            `}</style>
+          </div>
+        )}
 
         {/* Kotak Objek Grid */}
         <ObjectGrid 
