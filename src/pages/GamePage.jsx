@@ -17,7 +17,7 @@ import Modal from '../components/ui/Modal';
 import Button from '../components/ui/Button';
 
 // ============ GAME CONFIG — adjust di sini ============
-const TIMER_DURATION = 20;       // durasi timer per level (detik)
+const TIMER_DURATION = 24;       // durasi timer per level (detik)
 const WRONG_PENALTY  = 4;        // pengurangan waktu saat salah jawab (detik)
 // ======================================================
 
@@ -301,7 +301,8 @@ export default function GamePage() {
         ref={sceneRef} 
         className="flex-1 relative overflow-hidden"
         style={{ 
-          paddingBottom: '16px'
+          paddingBottom: '16px',
+          pointerEvents: isWaitingStart ? 'none' : 'auto'
         }}
         onPointerDown={(e) => spotlight.handlers.onPointerDown(e)}
         onPointerMove={(e) => spotlight.handlers.onPointerMove(e, cardRefs.current)}
