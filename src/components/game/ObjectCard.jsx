@@ -1,7 +1,7 @@
 import React from 'react';
 import Icon from '../ui/Icon';
 
-export default function ObjectCard({ id, label, imageSrc, emoji, state = 'default', cardRef, onClick }) {
+export default function ObjectCard({ id, label, imageSrc, emoji, state = 'default', cardRef, onClick, isHintActive }) {
   const [imageFailed, setImageFailed] = React.useState(false);
 
   // Base styles shared across all states — from Figma: rounded-[20px], padding 8px, vertical layout
@@ -71,8 +71,8 @@ export default function ObjectCard({ id, label, imageSrc, emoji, state = 'defaul
       )}
 
       {/* Label */}
-      {state === 'correct' && (
-        <span className="font-body text-xs text-darkbrown text-center mt-1">
+      {(state === 'correct' || isHintActive) && (
+        <span className={`font-body text-darkbrown text-center mt-1 ${isHintActive ? 'text-sm font-bold' : 'text-xs'}`}>
           {label}
         </span>
       )}

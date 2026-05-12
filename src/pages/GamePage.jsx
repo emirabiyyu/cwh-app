@@ -19,6 +19,8 @@ import Button from '../components/ui/Button';
 // ============ GAME CONFIG — adjust di sini ============
 const TIMER_DURATION = 24;       // durasi timer per level (detik)
 const WRONG_PENALTY  = 4;        // pengurangan waktu saat salah jawab (detik)
+const HINT_THRESHOLD = 2;        // jumlah salah per soal sebelum hint muncul
+const HINT_DURATION  = 3;        // durasi hint aktif (detik)
 // ======================================================
 
 export default function GamePage() {
@@ -42,6 +44,13 @@ export default function GamePage() {
   // Countdown 3-2-1 sebelum timer mulai
   const [countdown, setCountdown] = useState(3); // 3, 2, 1, 0 (0 = mulai)
   const isWaitingStart = countdown > 0;
+
+  // Hint experiment — per-question hint system
+  const [wrongPerQuestion, setWrongPerQuestion] = useState(0);
+  const [showHint, setShowHint] = useState(false);
+  const [hintUsed, setHintUsed] = useState(false);
+  const [isHintActive, setIsHintActive] = useState(false);
+  const hintTimeoutRef = useRef(null);
 
   // Loading preparing state — preload aset + minimum durasi tampil
   const [isPreparing, setIsPreparing] = useState(true);
@@ -122,9 +131,14 @@ export default function GamePage() {
     return arr.slice(0, 6);
   }, [missionId, levelId, level]);
 
-  // handleWrongAnswer — callback penalti timer
+  // handleWrongAnswer — callback penalti timer + hint counter
   const handleWrongAnswer = () => {
     timer.penalize(WRONG_PENALTY);
+    setWrongPerQuestion(prev => {
+      const next = prev + 1;
+      if (next >= HINT_THRESHOLD && !hintUsed) setShowHint(true);
+      return next;
+    });
   };
 
   // Inisialisasi GameState
@@ -146,6 +160,11 @@ export default function GamePage() {
 
   const handleRetry = () => {
     setCountdown(3);
+    setWrongPerQuestion(0);
+    setShowHint(false);
+    setHintUsed(false);
+    setIsHintActive(false);
+    clearTimeout(hintTimeoutRef.current);
     gameState.resetState();
     timer.reset();
   };
@@ -163,6 +182,11 @@ export default function GamePage() {
   const handleTimeoutRetry = () => {
     setIsTimeoutOpen(false);
     setCountdown(3);
+    setWrongPerQuestion(0);
+    setShowHint(false);
+    setHintUsed(false);
+    setIsHintActive(false);
+    clearTimeout(hintTimeoutRef.current);
     gameState.resetState();
     timer.reset();
   };
@@ -197,6 +221,27 @@ export default function GamePage() {
       timer.start();
     }
   }, [gameState.currentInstructionIndex]);
+
+  // Reset hint state saat soal berganti
+  useEffect(() => {
+    setWrongPerQuestion(0);
+    setShowHint(false);
+    setHintUsed(false);
+    setIsHintActive(false);
+    clearTimeout(hintTimeoutRef.current);
+  }, [gameState.currentInstructionIndex]);
+
+  // handleHint — aktifkan hint reveal
+  const handleHint = () => {
+    setShowHint(false);
+    setHintUsed(true);
+    setIsHintActive(true);
+    timer.pause();
+    hintTimeoutRef.current = setTimeout(() => {
+      setIsHintActive(false);
+      if (gameState.gameStatus === 'playing' && !isPaused) timer.start();
+    }, HINT_DURATION * 1000);
+  };
   
   // Guard
   if (!mission || !level) return <div className="p-8">Misi atau Level tidak ditemukan</div>;
@@ -358,16 +403,19 @@ export default function GamePage() {
         <ObjectGrid 
           objects={gameState.shuffledObjects} 
           cardStates={effectiveCardStates} 
-          onCardRef={(id, el) => { cardRefs.current[id] = el; }} 
+          onCardRef={(id, el) => { cardRefs.current[id] = el; }}
+          isHintActive={isHintActive}
         />
 
         {/* Mask/Gelap Spotlight yang bergantung pada state Spotlight */}
         <div 
-          className="absolute inset-0 z-20 pointer-events-none transition-colors duration-300"
+          className="absolute inset-0 z-20 pointer-events-none transition-all duration-300"
           style={{
+            opacity: isHintActive ? 0 : 1,
+            transition: 'opacity 0.4s ease',
             backgroundColor: gameState.gameStatus === 'correct' ? 'rgba(200, 214, 42, 0.95)' : gameState.gameStatus === 'wrong' ? 'rgba(255, 59, 48, 0.95)' : 'rgba(0, 0, 0, 100)',
-            WebkitMaskImage: `radial-gradient(circle ${spotlight.spotR} at ${spotlight.spotX} ${spotlight.spotY}, transparent 0%, transparent 55%, black 100%)`,
-            maskImage: `radial-gradient(circle ${spotlight.spotR} at ${spotlight.spotX} ${spotlight.spotY}, transparent 0%, transparent 55%, black 100%)`,
+            WebkitMaskImage: isHintActive ? 'none' : `radial-gradient(circle ${spotlight.spotR} at ${spotlight.spotX} ${spotlight.spotY}, transparent 0%, transparent 55%, black 100%)`,
+            maskImage: isHintActive ? 'none' : `radial-gradient(circle ${spotlight.spotR} at ${spotlight.spotX} ${spotlight.spotY}, transparent 0%, transparent 55%, black 100%)`,
           }}
         />
 
@@ -385,6 +433,29 @@ export default function GamePage() {
              <div lang="en" translate="no" className="bg-[#FF3B30] text-white font-heading font-black text-2xl px-6 py-3 rounded-full border-4 border-white">
                 Coba Lagi! ❌
              </div>
+          </div>
+        )}
+
+        {/* Tombol Hint — muncul setelah N kali salah di soal yang sama */}
+        {showHint && !isHintActive && (
+          <div
+            className="absolute bottom-4 left-1/2 -translate-x-1/2 z-30"
+            style={{ pointerEvents: 'auto' }}
+            onPointerDown={(e) => e.stopPropagation()}
+            onPointerUp={(e) => e.stopPropagation()}
+            onPointerMove={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={handleHint}
+              className="font-heading font-bold text-darkbrown rounded-xl px-6 py-2.5 active:translate-y-[2px] active:shadow-none transition-all"
+              style={{
+                background: '#C8D62A',
+                boxShadow: '0 4px 0 #9aaa00',
+                fontSize: 'clamp(0.875rem, 2vw, 1rem)',
+              }}
+            >
+              💡 Hint
+            </button>
           </div>
         )}
 
