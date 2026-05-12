@@ -18,7 +18,7 @@ import Button from '../components/ui/Button';
 
 // ============ GAME CONFIG — adjust di sini ============
 const TIMER_DURATION = 30;       // durasi timer per level (detik)
-const WRONG_PENALTY  = 4;        // pengurangan waktu saat salah jawab (detik)
+const WRONG_PENALTY  = 3;        // pengurangan waktu saat salah jawab (detik)
 const HINT_THRESHOLD = 2;        // jumlah salah per soal sebelum hint muncul
 const HINT_DURATION  = 3;        // durasi hint aktif (detik)
 // ======================================================
